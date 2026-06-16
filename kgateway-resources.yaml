@@ -23,7 +23,7 @@ spec:
   - name: microservices-gateway
   rules:
   
-  # 1. Product Catalog Service
+
   - matches:
     - path:
         type: PathPrefix
@@ -32,7 +32,7 @@ spec:
     - name: productcatalogservice
       port: 3550
 
-  # 2. Cart Service
+ 
   - matches:
     - path:
         type: PathPrefix
@@ -41,7 +41,7 @@ spec:
     - name: cartservice
       port: 7070
 
-  # 3. Currency Service
+ 
   - matches:
     - path:
         type: PathPrefix
@@ -50,7 +50,7 @@ spec:
     - name: currencyservice
       port: 7000
 
-  # 4. Shipping Service
+  
   - matches:
     - path:
         type: PathPrefix
@@ -59,7 +59,7 @@ spec:
     - name: shippingservice
       port: 50051
 
-  # 5. Recommendation Service
+  
   - matches:
     - path:
         type: PathPrefix
@@ -68,7 +68,7 @@ spec:
     - name: recommendationservice
       port: 8080
 
-  # 6. Checkout Service
+ 
   - matches:
     - path:
         type: PathPrefix
@@ -77,7 +77,7 @@ spec:
     - name: checkoutservice
       port: 5050
 
-  # 7. Email Service
+
   - matches:
     - path:
         type: PathPrefix
@@ -86,7 +86,7 @@ spec:
     - name: emailservice
       port: 5000
 
-  # 8. Payment Service
+  
   - matches:
     - path:
         type: PathPrefix
@@ -95,7 +95,7 @@ spec:
     - name: paymentservice
       port: 50051
 
-  # 9. Ad Service
+  
   - matches:
     - path:
         type: PathPrefix
@@ -104,7 +104,7 @@ spec:
     - name: adservice
       port: 9555
 
-  # 10. Redis Cart Service (TCP-based backend exposed over HTTP Route)
+  
   - matches:
     - path:
         type: PathPrefix
@@ -113,7 +113,7 @@ spec:
     - name: redis-cart
       port: 6379
 
-  # 11. Frontend Web Service (Catch-All homepage route - MUST BE LAST)
+
   - matches:
     - path:
         type: PathPrefix
