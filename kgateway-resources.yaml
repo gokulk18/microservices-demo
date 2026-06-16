@@ -1,0 +1,123 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: microservices-gateway
+  namespace: default
+spec:
+  gatewayClassName: kgateway
+  listeners:
+  - name: http
+    protocol: HTTP
+    port: 80
+    allowedRoutes:
+      namespaces:
+        from: Same
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: microservices-route
+  namespace: default
+spec:
+  parentRefs:
+  - name: microservices-gateway
+  rules:
+  
+  # 1. Product Catalog Service
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /products
+    backendRefs:
+    - name: productcatalogservice
+      port: 3550
+
+  # 2. Cart Service
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /cart
+    backendRefs:
+    - name: cartservice
+      port: 7070
+
+  # 3. Currency Service
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /currency
+    backendRefs:
+    - name: currencyservice
+      port: 7000
+
+  # 4. Shipping Service
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /shipping
+    backendRefs:
+    - name: shippingservice
+      port: 50051
+
+  # 5. Recommendation Service
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /recommendations
+    backendRefs:
+    - name: recommendationservice
+      port: 8080
+
+  # 6. Checkout Service
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /checkout
+    backendRefs:
+    - name: checkoutservice
+      port: 5050
+
+  # 7. Email Service
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /email
+    backendRefs:
+    - name: emailservice
+      port: 5000
+
+  # 8. Payment Service
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /payment
+    backendRefs:
+    - name: paymentservice
+      port: 50051
+
+  # 9. Ad Service
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /ads
+    backendRefs:
+    - name: adservice
+      port: 9555
+
+  # 10. Redis Cart Service (TCP-based backend exposed over HTTP Route)
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /redis
+    backendRefs:
+    - name: redis-cart
+      port: 6379
+
+  # 11. Frontend Web Service (Catch-All homepage route - MUST BE LAST)
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: frontend
+      port: 80
